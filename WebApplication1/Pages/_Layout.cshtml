@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    @*<environment include="Development">
+            <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+            <link rel="stylesheet" href="~/lib/weui/dist/style/weui.css" />
+            <link rel="stylesheet" href="~/css/site.css" />
+        </environment>
+        <environment exclude="Development">
+            <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/lib/weui/dist/style/weui.min.css" asp-append-version="true" />
+        </environment>*@
+
+    <!-- Include external CSS. -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+
+    <!-- Include Editor style. -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.0/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <!-- Create a tag that we will use as the editable area. -->
+    <!-- You can use a div tag as well. -->
+    <div>
+        @RenderBody()
+    </div>
+    <div id="edit"></div>
+    <input id="textarea" type="text" />
+    <input type="button" value="确认" onclick="onAlter()" />
+    @* <div id="edit"></div>*@
+    <div id="view"></div>
+
+    <!-- Include external JS libs. -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+
+    <!-- Include Editor JS files. -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.0/js/froala_editor.pkgd.min.js"></script>
+
+    <!-- Initialize the editor. -->
+    <script>
+        var OssSignature = {};
+        var g_fileName;
+        $(document).ready(() => getOssSignature());
+
+        function getOssSignature() {
+            $.getJSON('http://wx.fcleyuan.com/api/oss/signature')
+                .done(data => {
+                    OssSignature = data.data;
+                });
+        }
+        $(function () {
+            $("#edit").froalaEditor({
+                placeholderText: "输入你要输入的内容",
+                language: "zh_cn",
+                height: 400,
+                toolbarButtons: [
+                    "bold",
+                    "italic",
+                    "underline",
+                    "strikeThrough",
+                    "subscript",
+                    "superscript",
+                    "fontFamily",
+                    "fontSize",
+                    "color",
+                    "paragraphFormat",
+                    "align",
+                    "formatOL",
+                    "formatUL",
+                    "outdent",
+                    "indent",
+                    "quote",
+                    "-",
+                    "insertImage",
+                    "insertTable",
+                    "emoticons",
+                    "insertHR",
+                    "selectAll",
+                    "undo",
+                    "redo"
+                ],
+                'html.get': false,
+                // Set the image upload parameter.
+                //imageUploadParam: set_upload_param(),
+
+                // Set the image upload URL.
+                imageUploadURL: "http://api-test.fcleyuan.com/api/oss/upload",
+
+                // Additional upload params.
+                //imageUploadParams: { id: generateUUID() },
+
+                // Set request type.
+                //imageUploadMethod: "POST",
+
+
+            }).on('froalaEditor.contentChanged', function (e, editor) {
+                //alert(editor.html.get());
+                document.getElementById("textarea").value = editor.html.get();
+               
+            })
+        });
+
+        function generateUUID() {
+            let d = new Date().getTime();
+            let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                let r = (d + Math.random() * 16) % 16 | 0;
+                d = Math.floor(d / 16);
+                return (c === 'x' ? r : (r & 0x7 | 0x8)).toString(16);
+            });
+            return uuid;
+        }
+
+        function onAlter() {
+            //$('#edit').froalaEditor('save.save');
+            //alert($('#edit').froalaEditor('html.get'));
+            document.getElementById("textarea").value = $('#edit').froalaEditor('html.get');
+            document.getElementById("view").innerHTML = $('#edit').froalaEditor('html.get');
+        }
+
+        function set_upload_param(up, filename, ret) {
+            g_fileName = generateUUID();
+            console.log(g_fileName);
+
+            new_multipart_params = {
+                'key': g_fileName,
+                'policy': OssSignature.policy,
+                'OSSAccessKeyId': OssSignature.ossAccessKeyId,
+                'success_action_status': '200', //让服务端返回200,不然，默认会返回204
+                'signature': OssSignature.signature,
+            };
+
+            function generateUUID() {
+                let d = new Date().getTime();
+                let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                    let r = (d + Math.random() * 16) % 16 | 0;
+                    d = Math.floor(d / 16);
+                    return (c === 'x' ? r : (r & 0x7 | 0x8)).toString(16);
+                });
+                return uuid;
+            }
+
+        }
+    </script>
+    @*<environment include="Development">
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery"
+                    crossorigin="anonymous"
+                    integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+            </script>
+            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>
+
+        @RenderSection("Scripts", required: false)*@
+
+</body>
+</html>

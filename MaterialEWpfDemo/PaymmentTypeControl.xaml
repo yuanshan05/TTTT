@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="MaterialEWpfDemo.PaymmentTypeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MaterialEWpfDemo"
+             mc:Ignorable="d" x:Name="usercontrol">
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+        <CheckBox x:Name="ckb"
+                  IsChecked="{Binding CheckBoxIsChecked,ElementName=usercontrol,Mode=TwoWay}"
+                  Content="{Binding CheckBoxContent,ElementName=usercontrol,Mode=TwoWay}"
+                  Visibility="{Binding CheckBoxVisility,ElementName=usercontrol,Mode=TwoWay}"/>
+        <Label Content="{Binding CheckBoxContent,ElementName=usercontrol,Mode=TwoWay}" VerticalAlignment="Center">
+            <Label.Style>
+                <Style TargetType="{x:Type Label}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=ckb,Path=Visibility}" Value="Collapsed">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=ckb,Path=Visibility}" Value="Hidden">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <StackPanel.Style>
+                <Style TargetType="{x:Type StackPanel}">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=ckb,Path=IsChecked}" Value="False"/>
+                                <Condition Binding="{Binding ElementName=ckb,Path=Visibility}" Value="Visible"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <RadioButton GroupName="payment" 
+                         x:Name="hidden" 
+                         Checked="HiddenCheckedEvent" 
+                         Margin="5 0 0 0" Content="隐藏" 
+                         Visibility="Collapsed"
+                         IsChecked="{Binding HiddenChecked,ElementName=usercontrol,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <RadioButton GroupName="payment" 
+                         x:Name="cash" 
+                         Margin="5 0 0 0" 
+                         Content="现金" 
+                         Tag="1" 
+                         Click="PaymentTypeClick"
+                         Visibility="{Binding CashVisibility,ElementName=usercontrol,Mode=TwoWay}"/>
+            <RadioButton GroupName="payment" 
+                         x:Name="wechat" Margin="5 0 0 0"
+                         Content="微信" 
+                         Tag="2" 
+                         Click="PaymentTypeClick" 
+                         Visibility="{Binding WechatVisibility,ElementName=usercontrol,Mode=TwoWay}"/>
+            <RadioButton GroupName="payment"
+                         x:Name="alipay" 
+                         Margin="5 0 0 0" 
+                         Content="支付宝" 
+                         Tag="3" 
+                         Click="PaymentTypeClick" 
+                         Visibility="{Binding AilPayVisibility,ElementName=usercontrol,Mode=TwoWay}"/>
+            <RadioButton GroupName="payment" 
+                         x:Name="unionpay" 
+                         Margin="5 0 0 0"
+                         Content="刷卡"
+                         Tag="4"
+                         Click="PaymentTypeClick" 
+                         Visibility="{Binding UnionPayVisibility,ElementName=usercontrol,Mode=TwoWay}"/>
+            <RadioButton GroupName="payment" 
+                         x:Name="stored"
+                         Margin="5 0 0 0"
+                         Content="储值"
+                         Tag="6" 
+                         Click="PaymentTypeClick" 
+                         Visibility="{Binding StoredVisibility,Mode=TwoWay,ElementName=usercontrol}"/>
+            <RadioButton GroupName="payment" 
+                         x:Name="transfer"
+                         Margin="5 0 0 0" 
+                         Content="转储" 
+                         Tag="7" 
+                         Click="PaymentTypeClick"
+                         Visibility="{Binding TransferVisibility,ElementName=usercontrol,Mode=TwoWay}"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

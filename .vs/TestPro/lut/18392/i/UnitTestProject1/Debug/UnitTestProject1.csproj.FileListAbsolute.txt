@@ -1,0 +1,11 @@
+F:\Test\TestPro\.vs\TestPro\lut\0\b\UnitTestProject1\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+F:\Test\TestPro\.vs\TestPro\lut\0\b\UnitTestProject1\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+F:\Test\TestPro\.vs\TestPro\lut\0\b\UnitTestProject1\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+F:\Test\TestPro\.vs\TestPro\lut\0\b\UnitTestProject1\bin\Debug\zh-Hans\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+F:\Test\TestPro\.vs\TestPro\lut\0\b\UnitTestProject1\bin\Debug\zh-Hans\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+F:\Test\TestPro\.vs\TestPro\lut\0\b\UnitTestProject1\bin\Debug\zh-Hans\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+F:\Test\TestPro\.vs\TestPro\lut\0\b\UnitTestProject1\bin\Debug\UnitTestProject1.dll
+F:\Test\TestPro\.vs\TestPro\lut\0\b\UnitTestProject1\bin\Debug\UnitTestProject1.pdb
+F:\Test\TestPro\.vs\TestPro\lut\0\i\UnitTestProject1\Debug\UnitTestProject1.csproj.CoreCompileInputs.cache
+F:\Test\TestPro\.vs\TestPro\lut\0\i\UnitTestProject1\Debug\UnitTestProject1.dll
+F:\Test\TestPro\.vs\TestPro\lut\0\i\UnitTestProject1\Debug\UnitTestProject1.pdb

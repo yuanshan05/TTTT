@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="MaterialEWpfDemo.FuzzyQueryControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:local="clr-namespace:MaterialEWpfDemo"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             x:Name="fuzzyquery"
+             mc:Ignorable="d">
+    <StackPanel Width="{Binding TextWidth,ElementName=fuzzyquery,Mode=TwoWay}" 
+                Height="{Binding TextHeight,ElementName=fuzzyquery,Mode=TwoWay}">
+        <xctk:WatermarkTextBox Background="Transparent" 
+                               Text="{Binding ElementName=fuzzyquery,Path=CondtionKey,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                               Watermark="{Binding WatermarkKey, ElementName=fuzzyquery,Mode=TwoWay}"
+                               Height="{Binding TextHeight,ElementName=fuzzyquery,Mode=TwoWay}"
+                               Width="{Binding TextWidth,ElementName=fuzzyquery,Mode=TwoWay}"
+                               VerticalContentAlignment="Center" 
+                               x:Name="querykey">
+            <!--TextChanged="TextChangedHandler"-->
+        </xctk:WatermarkTextBox>
+        <Popup PlacementTarget="{Binding ElementName=querykey}" 
+               AllowsTransparency="True"
+               Placement="Bottom"
+               StaysOpen="False"
+               IsOpen="{Binding PopupOpen,ElementName=fuzzyquery}"
+               PopupAnimation="Slide">
+            <ItemsControl ItemsSource="{Binding ItemsControlSource,Mode=TwoWay,ElementName=fuzzyquery}" 
+                          Style="{Binding ItemsControlItemStyle,ElementName=fuzzyquery,Mode=TwoWay}"
+                          x:Name="itemscontrol" 
+                          ItemTemplate="{Binding ItemTemplte,ElementName=fuzzyquery,Mode=TwoWay}">
+                <!--<ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel x:Name="stackpanel" Orientation="Horizontal">
+                            <TextBlock Width="100" Text="{Binding Name}"/>
+                            <TextBlock Width="100" Text="{Binding Phone}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>-->
+            </ItemsControl>
+        </Popup>
+    </StackPanel>
+</UserControl>

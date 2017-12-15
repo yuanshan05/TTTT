@@ -1,0 +1,7 @@
+F:\Test\TestPro\.vs\TestPro\lut\0\b\TestPro\bin\Debug\TestPro.exe.config
+F:\Test\TestPro\.vs\TestPro\lut\0\b\TestPro\bin\Debug\TestPro.exe
+F:\Test\TestPro\.vs\TestPro\lut\0\b\TestPro\bin\Debug\TestPro.pdb
+F:\Test\TestPro\.vs\TestPro\lut\0\i\TestPro\Debug\TestPro.csprojResolveAssemblyReference.cache
+F:\Test\TestPro\.vs\TestPro\lut\0\i\TestPro\Debug\TestPro.csproj.CoreCompileInputs.cache
+F:\Test\TestPro\.vs\TestPro\lut\0\i\TestPro\Debug\TestPro.exe
+F:\Test\TestPro\.vs\TestPro\lut\0\i\TestPro\Debug\TestPro.pdb
